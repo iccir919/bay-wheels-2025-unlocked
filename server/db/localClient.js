@@ -21,85 +21,96 @@ export function createLocalClient() {
                 await client.query(sql)
                 return { error: null };
             } catch (error) {
-                console.error(`[LocalClient] Error running schema SQL: ${error.message}`);
-                return { error };
+                console.error(`[LocalClient] Error running schema SQL: ${error.message}`)
+                return { error }
             } finally {
-                client.release();
+                client.release()
+            }
+        },
+
+        // --- General Query Method (for raw SQL in dataAccess.js) ---
+        async query(sql, params = []) {
+            try {
+                const res = await pgPool.query(sql, params)
+                return { data: res.rows, error: null }
+            } catch (error) {
+                console.error(`[LocalClient] Error executing general query: ${error.message}`)
+                return { data: null, error }
             }
         },
 
         // --- Data Interaction Methods (mimicking Supabase for import-data.js) ---
         from: (table) => ({
             async insert(data) {
-                if (data.length === 0) return { error: null };
+                if (data.length === 0) return { error: null }
                 
 
-                const columns = Object.keys(data[0]).map(col => `"${col}"`).join(', ');
-                let values = [];
-                let placeholders = [];
-                let paramIndex = 1;
+                const columns = Object.keys(data[0]).map(col => `"${col}"`).join(', ')
+                let values = []
+                let placeholders = []
+                let paramIndex = 1
 
                 for (const row of data) {
-                    const rowValues = Object.values(row);
-                    values.push(...rowValues);
+                    const rowValues = Object.values(row)
+                    values.push(...rowValues)
                     
-                    const rowPlaceholders = rowValues.map(() => `$${paramIndex++}`).join(', ');
-                    placeholders.push(`(${rowPlaceholders})`);
+                    const rowPlaceholders = rowValues.map(() => `$${paramIndex++}`).join(', ')
+                    placeholders.push(`(${rowPlaceholders})`)
                 }
                 
                 // Use ON CONFLICT DO NOTHING to handle duplicates gracefully
-                const sql = `INSERT INTO "${table}" (${columns}) VALUES ${placeholders.join(', ')} ON CONFLICT (ride_id) DO NOTHING;`;
+                const sql = `INSERT INTO "${table}" (${columns}) VALUES ${placeholders.join(', ')} ON CONFLICT (ride_id) DO NOTHING;`
 
                 try {
-                    await pgPool.query(sql, values);
-                    return { error: null };
+                    await pgPool.query(sql, values)
+                    return { error: null }
                 } catch (error) {
                     // Explicitly check for unique violation code (Postgres '23505')
                     if (error.code === '23505') {
-                        return { error, code: '23505' };
+                        return { error, code: '23505' }
                     }
-                    console.error(`[LocalClient] Error inserting batch:`, error.message);
-                    return { error };
+                    console.error(`[LocalClient] Error inserting batch:`, error.message)
+                    return { error }
                 }
             },
 
             select: (columns) => ({
                 not: async (column, operator, value) => {
-                    const columnsSQL = columns.split(',').map(c => `"${c.trim()}"`).join(', ');
-                    const sql = `SELECT ${columnsSQL} FROM "${table}" WHERE "${column}" IS NOT NULL;`;
+                    const columnsSQL = columns.split(',').map(c => `"${c.trim()}"`).join(', ')
+                    const sql = `SELECT ${columnsSQL} FROM "${table}" WHERE "${column}" IS NOT NULL;`
                     
                     try {
-                        const res = await pgPool.query(sql);
-                        return { data: res.rows, error: null };
+                        const res = await pgPool.query(sql)
+                        return { data: res.rows, error: null }
                     } catch (error) {
-                        console.error(`[LocalClient] Error selecting data:`, error.message);
-                        return { data: null, error };
+                        console.error(`[LocalClient] Error selecting data:`, error.message)
+                        return { data: null, error }
                     }
                 }
             }),
 
             async upsert(data, { onConflict }) {
-                if (data.length === 0) return { error: null };
+                if (data.length === 0) return { error: null }
                 
 
-                const columns = Object.keys(data[0]).map(col => `"${col}"`).join(', ');
+                const columns = Object.keys(data[0]).map(col => `"${col}"`).join(', ')
                 const conflictColumn = onConflict;
                 
                 const updateColumns = Object.keys(data[0])
                     .filter(key => key !== conflictColumn)
                     .map(key => `"${key}" = EXCLUDED."${key}"`)
-                    .join(', ');
+                    .join(', ')
 
-                let values = [];
-                let placeholders = [];
-                let paramIndex = 1;
+                let values = []
+                let placeholders = []
+                let paramIndex = 1
 
                 for (const row of data) {
-                    const rowValues = Object.values(row);
-                    values.push(...rowValues);
+                    const rowValues = Object.values(row)
+                    values.push(...rowValues)
                     
-                    const rowPlaceholders = rowValues.map(() => `$${paramIndex++}`).join(', ');
-                    placeholders.push(`(${rowPlaceholders})`);
+                    const rowPlaceholders = rowValues.map(() => `$${paramIndex++}`).join(', ')
+                    placeholders.push(`(${rowPlaceholders})`)
                 }
 
                 const sql = `
@@ -110,18 +121,18 @@ export function createLocalClient() {
                 `;
                 
                 try {
-                    await pgPool.query(sql, values);
-                    return { error: null };
+                    await pgPool.query(sql, values)
+                    return { error: null }
                 } catch (error) {
-                    console.error(`[LocalClient] Error upserting batch:`, error.message);
-                    return { error };
+                    console.error(`[LocalClient] Error upserting batch:`, error.message)
+                    return { error }
                 }
             }
         }),
         
         async end() {
-            await pgPool.end();
-            console.log('[LocalClient] Connection pool closed.');
+            await pgPool.end()
+            console.log('[LocalClient] Connection pool closed.')
         }
     }
 }

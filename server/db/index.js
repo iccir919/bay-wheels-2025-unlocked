@@ -4,7 +4,7 @@ const DB_TARGET = process.env.DB_TARGET || "Local"
 
 let db
 console.log(DB_TARGET)
-if (DB_TARGET === "Local") {
+if (DB_TARGET === "local") {
     db = createLocalClient()
 } else {
     // db = createSupabaseClient()
