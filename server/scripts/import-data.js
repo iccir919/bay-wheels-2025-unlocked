@@ -29,14 +29,28 @@ function parseCSV(filepath) {
     })
 }
 
+// Helper function to calculate duration in seconds
+function calculateDurationInSeconds(startedAt, endedAt) {
+    if (!startedAt || !endedAt) return null;
+    const start = new Date(startedAt);
+    const end = new Date(endedAt);
+    const diffSeconds = (end.getTime() - start.getTime()) / 1000;
+    // Basic validation: must be positive and less than 1 day (86400 seconds)
+    if (diffSeconds > 0 && diffSeconds < 86400) {
+        return Math.floor(diffSeconds);
+    }
+    return 0; // Invalid/too long trip duration
+}
 
 function transformTrip(row) {
+    const duration_seconds = calculateDurationInSeconds(row.started_at, row.ended_at)
     // Transform CSV row to match database schema
     return {
     ride_id: row.ride_id?.trim() || null,
     rideable_type: row.rideable_type?.trim() || null,
     started_at: row.started_at?.trim() || null,
     ended_at: row.ended_at?.trim() || null,
+    duration_seconds: duration_seconds,
     start_station_name: row.start_station_name?.trim() || null,
     start_station_id: row.start_station_id?.trim() || null,
     end_station_name: row.end_station_name?.trim() || null,
@@ -104,73 +118,57 @@ async function importTrips(filepath) {
     return { successCount, errorCount, skippedDuplicates, totalCount: trips.length }
 }
 
-async function extractStations() {
-    console.log('\nExtracting unique stations from trips...');
-    
-    // Get all unique start stations
-    // Uses generic 'db' object
-    const { data: startStations, error: startError } = await db
-        .from('trips')
-        .select('start_station_id, start_station_name, start_lat, start_lng')
-        .not('start_station_id', 'is', null);
-    
-    if (startError) throw startError;
-    
-    // Get all unique end stations
-    const { data: endStations, error: endError } = await db
-        .from('trips')
-        .select('end_station_id, end_station_name, end_lat, end_lng')
-        .not('end_station_id', 'is', null);
-    
-    if (endError) throw endError;
-    
-    // Create unique stations map (client-side logic remains the same)
+async function extractStationsFromCSVs(csvFiles) {
+    console.log('\nExtracting unique stations from CSVs...');
+
     const stationsMap = new Map();
-    
-    startStations.forEach(trip => {
-        if (trip.start_station_id && !stationsMap.has(trip.start_station_id)) {
-        stationsMap.set(trip.start_station_id, {
-            station_id: trip.start_station_id,
-            name: trip.start_station_name,
-            latitude: trip.start_lat,
-            longitude: trip.start_lng
-        });
+
+    for (const filepath of csvFiles) {
+        const rows = await parseCSV(filepath);
+
+        for (const row of rows) {
+            const startId = row.start_station_id?.trim();
+            if (startId) {
+                stationsMap.set(startId, {
+                    station_id: startId,
+                    name: row.start_station_name?.trim() || null,
+                    latitude: row.start_lat ? parseFloat(row.start_lat) : null,
+                    longitude: row.start_lng ? parseFloat(row.start_lng) : null,
+                });
+            }
+
+            const endId = row.end_station_id?.trim();
+            if (endId) {
+                stationsMap.set(endId, {
+                    station_id: endId,
+                    name: row.end_station_name?.trim() || null,
+                    latitude: row.end_lat ? parseFloat(row.end_lat) : null,
+                    longitude: row.end_lng ? parseFloat(row.end_lng) : null,
+                });
+            }
         }
-    });
-    
-    endStations.forEach(trip => {
-        if (trip.end_station_id && !stationsMap.has(trip.end_station_id)) {
-        stationsMap.set(trip.end_station_id, {
-            station_id: trip.end_station_id,
-            name: trip.end_station_name,
-            latitude: trip.end_lat,
-            longitude: trip.end_lng
-        });
-        }
-    });
-    
+    }
+
     const stations = Array.from(stationsMap.values());
     console.log(`Found ${stations.length} unique stations`);
-    
-    // Insert stations in batches (upsert is handled by the abstraction layer)
+
     let insertedCount = 0;
     for (let i = 0; i < stations.length; i += BATCH_SIZE) {
         const batch = stations.slice(i, i + BATCH_SIZE);
-        
-        // Uses generic 'db' object for upsert
+
         const { error } = await db
-        .from('stations')
-        .upsert(batch, { onConflict: 'station_id' });
-        
-        if (error) {
-        console.error(`Error inserting stations batch:`, error);
-        } else {
+            .from('stations')
+            .upsert(batch, { onConflict: 'station_id' });
+
+        if (error) throw error;
+
         insertedCount += batch.length;
         console.log(`✓ Inserted ${insertedCount}/${stations.length} stations`);
-        }
     }
+
     return insertedCount;
 }
+
 
 async function getCSVFiles() {
     // Check if data folder exists
@@ -208,6 +206,14 @@ async function main() {
         let totalErrors = 0
         let totalDuplicates = 0
 
+        // Extract and populate stations table
+        const stationCount = await extractStationsFromCSVs(csvFiles);
+        
+        console.log('\n═══════════════════════════════════════════════');
+        console.log('  Import Complete! ✓');
+        console.log(`  ${stationCount} stations catalogued`);
+        console.log('═══════════════════════════════════════════════\n');  
+
         for (const filepath of csvFiles) {
             const result = await importTrips(filepath)
             totalTrips += result.totalCount
@@ -223,15 +229,7 @@ async function main() {
         console.log(`  Invalid/Skipped: ${totalErrors}`)
         console.log(`  Duplicates skipped: ${totalDuplicates}`)
         console.log('───────────────────────────────────────────────')
-
-        // Extract and populate stations table
-        const stationCount = await extractStations();
-        
-        console.log('\n═══════════════════════════════════════════════');
-        console.log('  Import Complete! ✓');
-        console.log(`  ${totalSuccess} trips imported`);
-        console.log(`  ${stationCount} stations catalogued`);
-        console.log('═══════════════════════════════════════════════\n');        
+      
     } catch (error) {
         console.error('\n✗ Import failed:', error.message)
         process.exit(1)

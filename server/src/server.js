@@ -3,7 +3,10 @@ import dotenv from "dotenv"
 import compression from "compression"
 import helmet from "helmet"
 import cors from "cors"
+import tripsRouter from "./routes/trips.js"
 import db from "../db/index.js"
+
+
 
 dotenv.config()
 
@@ -23,6 +26,9 @@ app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`)
     next()
 })
+
+// API routes
+app.use("/api/trips", tripsRouter)
 
 // Health check endpoint
 app.get("/health", (req, res) => {
@@ -46,6 +52,10 @@ app.use((err, req, res, next) => {
     })
 })
 
+
+// ============================================
+// SERVER STARTUP
+// ============================================
 async function startServer() {
     try {
         const dbTarget = process.env.DB_TARGET || "local"
