@@ -8,9 +8,24 @@ export const getYearlySummary = async (req, res) => {
         const summary = await tripsService.getYearlySummary()
         res.status(200).json({ message: "Yearly trip summary retrieved.", data: summary })
     } catch (error) {
+        console.error("Error fetching yearly summary:", error)
         res.status(500).json({ message: "Failed to generate summary.", data: error.message })
     }
 }
+
+/**
+ * Handles GET /api/v1/trips/summary/monthly - Retrieves the monthly trip summary data.
+ */
+export const getMonthlySummaryData = async (req, res) => {
+    try {
+        const summary = await tripsService.getMonthlySummaryData()
+        res.status(200).json({ message: "Monthly trip summary retrieved.", data: summary })
+    } catch (error) {
+        console.error("Error fetching yearly summary:", error)
+        res.status(500).json({ message: "Failed to generate summary.", data: error.message })
+    }
+}
+
 
 /**
  * Handles GET /api/v1/trips/routes/top - Retrieves the most popular routes.

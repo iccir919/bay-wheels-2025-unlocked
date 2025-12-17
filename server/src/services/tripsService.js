@@ -14,6 +14,19 @@ export async function getYearlySummary() {
 }
 
 /**
+ * Retrieves the detailed monthly summary data using the V1 view.
+ */
+export async function getMonthlySummaryData() {
+    const sql = "SELECT * FROM trips_monthly_summary_2025;"
+    const { data, error } = await db.query(sql)
+    if (error) {
+        throw new Error(`Database error retrieving monthly summary: ${error.message}`)
+    }
+    return data
+}
+
+
+/**
  * Retrieves the top routes (start/end pair) based on trip count using the V3 view.
  */
 export async function getTopRoutes(limit = 20) {

@@ -5,6 +5,7 @@ const router = express.Router()
 
 // Summary/Aggregate Routes
 router.get("/summary/yearly", tripsController.getYearlySummary)
+router.get("/summary/monthly", tripsController.getMonthlySummaryData)
 
 // Analytics Routes
 router.get("/routes/top", tripsController.getTopRoutesData)
