@@ -1,7 +1,7 @@
 import * as tripsService from "../services/tripsService.js"
 
 /**
- * Handles GET /api/v1/trips/summary/yearly - Retrieves the yearly aggregate summary data.
+ * Handles GET /api/trips/summary/yearly - Retrieves the yearly aggregate summary data.
  */
 export const getYearlySummary = async (req, res) => {
     try {
@@ -14,7 +14,7 @@ export const getYearlySummary = async (req, res) => {
 }
 
 /**
- * Handles GET /api/v1/trips/summary/monthly - Retrieves the monthly trip summary data.
+ * Handles GET /api/trips/summary/monthly - Retrieves the monthly trip summary data.
  */
 export const getMonthlySummaryData = async (req, res) => {
     try {
@@ -28,7 +28,7 @@ export const getMonthlySummaryData = async (req, res) => {
 
 
 /**
- * Handles GET /api/v1/trips/routes/top - Retrieves the most popular routes.
+ * Handles GET /api/trips/routes/top - Retrieves the most popular routes.
  */
 export const getTopRoutesData = async (req, res) => {
     try {
@@ -38,5 +38,31 @@ export const getTopRoutesData = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: "Failed to retrieve top routes.", error: error.message })
+    }
+}
+
+/**
+ * Handles GET /api/trips/categories/distribution - Retrieves trip distribution by duration and user type.
+ */
+export const getDurationDistributionData = async (req, res) => {
+    try {
+        const distribution = await tripsService.getDurationDistribution()
+        res.status(200).json({ message: 'Trip duration distribution retrieved.', data: distribution })
+    } catch (error) {
+        console.error('Error fetching duration distribution:', error)
+        res.status(500).json({ message: 'Failed to retrieve distribution data.', error: error.message })
+    }
+}
+
+/**
+ * Handles GET /api/v1/trips/analytics/rideable-type-usage - Retrieves usage counts for each bike type.
+ */
+export const getRideableTypeUsageData = async (req, res) => {
+    try {
+        const usage = await tripsService.getRideableTypeUsage()
+        res.status(200).json({ message: "Rideable type usage retrieved.", data: usage })
+    } catch (error) {
+        console.error('Error fetching duration distribution:', error)
+        res.status(500).json({ message: 'Failed to retrieve distribution data.', error: error.message })
     }
 }

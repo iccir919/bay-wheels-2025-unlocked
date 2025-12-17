@@ -42,3 +42,35 @@ export async function getTopRoutes(limit = 20) {
     }
     return data
 }
+
+/**
+ * Retrieves trip distribution data segmented by duration category and user type using the V4 view.
+ */
+export async function getDurationDistribution() {
+    const sql = "SELECT * FROM trips_category_distribution_2025;"
+    const { data, error } = await db.query(sql)
+    if (error) {
+        throw new Error(`Database error retrieving duration distribution: ${error.message}`)
+    }
+    return data
+}
+
+/**
+ * Retrieves usage counts for each rideable type, segmented by user type.
+ */
+export async function getRideableTypeUsage() {
+    const sql = `
+        SELECT 
+            rideable_type,
+            member_casual,
+            COUNT(ride_id) AS total_trips
+        FROM trips
+        GROUP BY 1, 2
+        ORDER BY total_trips DESC;
+    `
+    const { data, error } = await db.query(sql)
+    if (error) {
+        throw new Error(`Database error retrieving rideable type usage: ${error.message}`)
+    }
+    return data
+}

@@ -9,5 +9,7 @@ router.get("/summary/monthly", tripsController.getMonthlySummaryData)
 
 // Analytics Routes
 router.get("/routes/top", tripsController.getTopRoutesData)
+router.get("/categories/distribution", tripsController.getDurationDistributionData)
+router.get("/analytics/rideable-type-usage", tripsController.getRideableTypeUsageData)
 
 export default router
