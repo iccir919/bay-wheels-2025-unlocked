@@ -21,16 +21,19 @@ function BayWheelsUnlocked() {
     try {
       setLoading(true)
 
-      const [yearlyRes, routesRes] = await Promise.all([
+      const [yearlyRes, monthlyRes, routesRes] = await Promise.all([
         fetch(`${API_BASE_URL}/trips/summary/yearly`),
+        fetch(`${API_BASE_URL}/trips/summary/monthly`),
         fetch(`${API_BASE_URL}/trips/routes/top?limit=10`)
       ])
 
       const yearly = await yearlyRes.json()
+      const monthly = await monthlyRes.json()
       const routes = await routesRes.json()
 
       setData({
         yearly: yearly.data,
+        monthly: monthly.data,
         topRoutes: routes.data
       })
 
@@ -59,7 +62,7 @@ function BayWheelsUnlocked() {
     )
   }
 
-  const { yearly, topRoutes } = data
+  const { yearly, monthly, topRoutes } = data
 
 
   const formatNumber = (num) => {
@@ -72,6 +75,15 @@ function BayWheelsUnlocked() {
     const mins = Math.round(minutes % 60);
     return `${hours}h ${mins}m`;
   }
+
+const formatMonthYear = (monthYear) => {
+  const [year, month] = monthYear.split('-')
+  const date = new Date(Number(year), Number(month) - 1)
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+  })
+}
 
   return (
     <div className="min-h-screen p-8">
@@ -171,7 +183,26 @@ function BayWheelsUnlocked() {
               })}
             </div>
           </div>
+
+          {/* Monthly Summary */}
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">📅 Monthly Breakdown</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4">
+              {monthly.slice(1).map((month, idx) => (
+                <div key={idx} className="p-4 rounded-lg border border-indigo-100">
+                  <div className="text-sm font-semibold text-gray-600 mb-2">
+                    {formatMonthYear(month.month_year)}
+                  </div>
+                  <div className="text-2xl font-bold text-indigo-600 mb-1">
+                    {formatNumber(month.total_trips)}
+                  </div>
+                  <div className="text-xs text-gray-500">trips</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+
 
       </div>
     </div>
