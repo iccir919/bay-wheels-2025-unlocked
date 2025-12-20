@@ -1,13 +1,23 @@
-import { createLocalClient } from "./localClient.js"
+// db/index.js
+import pg from "pg"
+const { Pool } = pg
 
-const DB_TARGET = process.env.DB_TARGET || "Local"
+const DB_TARGET = process.env.DB_TARGET || "local"
 
-let db
-console.log(DB_TARGET)
+let db;
+
 if (DB_TARGET === "local") {
-    db = createLocalClient()
-} else {
-    // db = createSupabaseClient()
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
+
+  db = {
+    query: (text, params) => pool.query(text, params),
+    runSQL: (text, params) => pool.query(text, params),
+    end: () => pool.end(),
+  }
+} else if (DB_TARGET === "supabase") {
+  // Placeholder
 }
 
 export default db
