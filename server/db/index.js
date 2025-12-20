@@ -10,6 +10,13 @@ const connectionString = DB_TARGET === "supabase"
   ? process.env.SUPABASE_DB_URL 
   : process.env.DATABASE_URL;
 
+  console.log(`[DB Init] Target: ${DB_TARGET}`);
+  if (!connectionString) {
+    console.error("[DB Init] CRITICAL: No connection string found! Check your Render Env Vars.");
+  } else {
+    console.log("[DB Init] Connection string found (length: " + connectionString.length + ")");
+  }
+
 const pool = new Pool({
   connectionString,
   ssl: DB_TARGET === "supabase" ? { rejectUnauthorized: false } : false
