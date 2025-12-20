@@ -1,3 +1,7 @@
+console.log("!!! SERVER STARTING UP !!!");
+import db from '../db/index.js';
+console.log("Checking DB object:", db ? "Exists" : "Is Undefined");
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
