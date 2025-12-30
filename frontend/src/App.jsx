@@ -5,9 +5,9 @@ import MapToggle from "./components/MapToggle.jsx";
 
 
 function App() {
-
   const [data, setData] = useState(null);
   const [mapView, setMapView] = useState("both");
+  const [highlight, setHighlight] = useState({ type: null, id: null })
 
   useEffect(() => {
     fetch("/data/master_analysis.json")
@@ -16,6 +16,15 @@ function App() {
       .catch(err => console.error("Failed to load data", err));
   }, [])
 
+  function toggleHighlight(type, id) {
+    console.log(type, id)
+    setHighlight(prev => {
+      if (prev.type === type && prev.id === id) {
+        return { type: null, id: null }; 
+      }
+      return { type, id }; 
+    });
+  }
 
   if (!data) {
     return (
@@ -35,14 +44,12 @@ function App() {
   const kpi = overview[0];
 
   return (
-    <div className="min-h-screen p-6">
-
+    <div className="min-h-screen p-6 space-y-10">
 
       <header className="mb-8">
         <h1 className="text-3xl font-bold">🚲 Bay Wheels Unlocked 2025</h1>
         <p className="text-slate-500 mt-1">System-wide usage review of data between January and November 2025.</p>
       </header>
-
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KpiCard icon="📊" label="Total Trips" value={kpi.total_trips.toLocaleString()} />
@@ -51,16 +58,21 @@ function App() {
         <KpiCard icon="⚡" label="Electric Rides" value={kpi.electric_trips.toLocaleString()} />
       </div>
 
-      <MapToggle value={mapView} onChange={setMapView} />
-
-      <MapView
-        mapView={mapView}
-        stations={stations}
-        routes={commonRoutes}
-      />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <MapView
+            mapView={mapView}
+            stations={stations}
+            routes={commonRoutes}
+            highlight={highlight}
+            onSelect={toggleHighlight}
+            onClear={() => setHighlight({ type: null, id: null })}
+          />
+        </div>
+      </div>
 
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
