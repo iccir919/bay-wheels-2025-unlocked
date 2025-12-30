@@ -53,16 +53,6 @@ export const queries = {
       total_trips DESC
   `,
 
-  topDestinationsPerStation: `
-    SELECT
-      start_station_id,
-      end_station_id,
-      COUNT(*) AS trip_count
-    FROM trips
-    WHERE start_station_id != end_station_id
-    GROUP BY start_station_id, end_station_id
-    ORDER BY start_station_id, trip_count DESC
-  `,
 
   commonRoutes: `
     SELECT
