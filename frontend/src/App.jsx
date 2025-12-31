@@ -6,6 +6,7 @@ import MapToggle from "./components/MapToggle.jsx";
 // Charts
 import TopStationsChart from "./components/charts/TopStationsChart";
 import TopRoutesChart from './components/charts/TopRoutesChart.jsx';
+import TripsByHourChart from "./components/charts/TripsByHourChart.jsx";
 
 
 function App() {
@@ -48,7 +49,8 @@ function App() {
   const {
     overview,
     stations,
-    commonRoutes
+    commonRoutes,
+    tripsByHour
   } = data.results;
   
   const kpi = overview[0];
@@ -56,11 +58,13 @@ function App() {
   return (
     <div className="min-h-screen p-6 space-y-10">
 
+      {/* Header */}
       <header className="mb-8">
         <h1 className="text-3xl font-bold">🚲 Bay Wheels Unlocked 2025</h1>
         <p className="text-slate-500 mt-1">System-wide usage review of data between January and November 2025.</p>
       </header>
 
+      {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KpiCard icon="📊" label="Total Trips" value={kpi.total_trips.toLocaleString()} />
         <KpiCard icon="⏱️" label="Avg Duration" value={`${kpi.avg_duration_minutes} min`} />
@@ -68,8 +72,8 @@ function App() {
         <KpiCard icon="⚡" label="Electric Rides" value={kpi.electric_trips.toLocaleString()} />
       </div>
 
+      {/* Map + Top Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
         <div className="space-y-3">
           <TopStationsChart
             stations={stations}
@@ -99,6 +103,15 @@ function App() {
             onClear={() => setHighlight({ type: null, id: null })}
           />
         </div>
+      </div>
+
+      {/* Monthly Trend */}
+      <div className="grid grid-cols-1 gap-6">
+      </div>
+
+      {/* Weekly & Hourly Usage */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <TripsByHourChart data={tripsByHour} />
       </div>
 
     </div>

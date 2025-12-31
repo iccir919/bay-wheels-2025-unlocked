@@ -93,11 +93,10 @@ export const queries = {
   tripsByHour: `
     SELECT
       CAST(EXTRACT(HOUR FROM started_at) AS INTEGER) AS hour,
-      member_casual,
       COUNT(*) AS trips,
       CAST(AVG(duration_seconds) / 60 AS INTEGER) AS avg_duration_minutes
     FROM trips
-    GROUP BY hour, member_casual
+    GROUP BY hour
     ORDER BY hour;
   `,
 
