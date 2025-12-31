@@ -20,6 +20,12 @@ function App() {
       .catch(err => console.error("Failed to load data", err));
   }, [])
 
+  function handleMapModeChange(nextMode) {
+    setMapView(nextMode);
+    setHighlight({ type: null, id: null });
+  }
+
+
   function toggleHighlight(type, id) {
     console.log(type, id)
     setHighlight(prev => {
@@ -63,16 +69,6 @@ function App() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <MapView
-            mapView={mapView}
-            stations={stations}
-            routes={commonRoutes}
-            highlight={highlight}
-            onSelect={toggleHighlight}
-            onClear={() => setHighlight({ type: null, id: null })}
-          />
-        </div>
 
         <div className="space-y-3">
           <TopStationsChart
@@ -85,6 +81,22 @@ function App() {
             routes={commonRoutes}
             highlight={highlight}
             onSelect={toggleHighlight}
+          />
+        </div>
+
+        <div className="lg:col-span-2">
+          <MapToggle
+            value={mapView}
+            onChange={handleMapModeChange}
+          />
+
+          <MapView
+            mapView={mapView}
+            stations={stations}
+            routes={commonRoutes}
+            highlight={highlight}
+            onSelect={toggleHighlight}
+            onClear={() => setHighlight({ type: null, id: null })}
           />
         </div>
       </div>

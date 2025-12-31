@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
   CircleMarker,
   Polyline,
   Tooltip,
+  useMap,
   useMapEvents
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -91,6 +92,12 @@ export default function MapView({ mapView, stations, routes, highlight, onSelect
     <MapContainer center={sfCenter} zoom={13} style={{ height: "500px", width: "100%" }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <MapClickHandler onClear={onClear} />
+
+      <MapAutoFly
+        highlight={highlight}
+        stations={stations}
+        routes={routes}
+      />
 
       {/* Routes */}
       {mapView !== "stations" &&
@@ -179,4 +186,49 @@ export default function MapView({ mapView, stations, routes, highlight, onSelect
       }
     </MapContainer>
   );
+}
+
+function MapAutoFly({ highlight, stations, routes }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!highlight.type || !highlight.id) return;
+
+    // ─── Station ───────────────────────────────
+    if (highlight.type === "station") {
+      const station = stations.find(
+        s => s.station_id === highlight.id
+      );
+
+      if (!station) return;
+
+      map.flyTo(
+        [station.latitude, station.longitude],
+        Math.max(map.getZoom(), 15),
+        { duration: 0.6 }
+      );
+    }
+
+    // ─── Route ─────────────────────────────────
+    if (highlight.type === "route") {
+      const route = routes.find(
+        r => `${r.s1_id}-${r.s2_id}` === highlight.id
+      );
+
+      if (!route) return;
+
+      map.fitBounds(
+        [
+          [route.s1_lat, route.s1_lng],
+          [route.s2_lat, route.s2_lng],
+        ],
+        {
+          padding: [80, 80],
+          duration: 0.6,
+        }
+      );
+    }
+  }, [highlight, map, stations, routes]);
+
+  return null;
 }
