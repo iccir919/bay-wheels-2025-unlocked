@@ -61,19 +61,19 @@ export default function MapView({ mapView, stations, routes, highlight, onSelect
     let weight = 2 + 3 * t;        // slightly thicker base
 
     if (isHovered) {
-      color = "#8b5cf6"; // blue-500
+      color = "#8b5cf6"; 
       opacity = 0.9;
       weight = 5 + 1 * t;
     }
 
     if (isActive) {
-      color = "#6d28d9"; // blue-700
+      color = "#6d28d9"; 
       opacity = 0.95;
       weight = 6 + 1 * t;
     }
 
     if (isDimmed) {
-      color = "#93c5fd"; // blue-300
+      color = "#c4b5fd"; 
       opacity = 0.1;
       weight = 1.5;
     }
