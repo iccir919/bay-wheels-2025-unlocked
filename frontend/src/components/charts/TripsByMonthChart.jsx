@@ -12,7 +12,7 @@ export default function TripsByMonth({ data }) {
     if (!data) return null;
 
     return (
-        <div className="bg-white rounded p-4 h-full">
+        <div className="bg-white rounded shadow p-4 h-full">
             <h3 className="text-lg font-semibold">Trips by Month</h3>
 
             <ResponsiveContainer width="100%" height={300}>

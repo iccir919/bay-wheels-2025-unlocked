@@ -87,6 +87,26 @@ export const queries = {
     LIMIT 1000;
   `,
 
+  topRoundTrips: `
+    SELECT
+      s.station_id,
+      s.name,
+      s.latitude,
+      s.longitude,
+      COUNT(*) AS round_trips,
+      SUM(CASE WHEN t.member_casual = 'member' THEN 1 ELSE 0 END) AS member_trips,
+      SUM(CASE WHEN t.member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_trips,
+      AVG(t.duration_seconds)/60.0 AS avg_duration_minutes
+    FROM trips t
+    JOIN stations s ON t.start_station_id = s.station_id
+    WHERE t.start_station_id = t.end_station_id
+      AND t.start_station_id IS NOT NULL
+    GROUP BY s.station_id, s.name, s.latitude, s.longitude
+    ORDER BY round_trips DESC
+    LIMIT 10;
+  `,
+
+
   /* ============================
      TEMPORAL PATTERNS
      ============================ */
@@ -155,32 +175,36 @@ tripsByMonth: `
   /* ============================
      GEOSPATIAL DISTANCE
      ============================ */
-  tripDistanceDistribution: `
+tripDistanceDistribution: `
+  SELECT
+    CASE
+      WHEN distance_mi < 0.621 THEN '0-1 mi'
+      WHEN distance_mi < 1.242 THEN '1-2 mi'
+      WHEN distance_mi < 1.864 THEN '2-3 mi'
+      WHEN distance_mi < 3.107 THEN '3-5 mi'
+      ELSE '5+ mi'
+    END AS distance_bucket,
+
+    SUM(CASE WHEN member_casual = 'member' THEN 1 ELSE 0 END) AS member_trips,
+    SUM(CASE WHEN member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_trips
+
+  FROM (
     SELECT
-      CASE
-        WHEN distance_km < 1 THEN '0-1 km'
-        WHEN distance_km < 2 THEN '1-2 km'
-        WHEN distance_km < 3 THEN '2-3 km'
-        WHEN distance_km < 5 THEN '3-5 km'
-        ELSE '5+ km'
-      END AS distance_bucket,
       member_casual,
-      COUNT(*) AS trips
-    FROM (
-      SELECT 
-        member_casual,
-        (6371 * acos(LEAST(1.0, cos(radians(start_lat)) * cos(radians(end_lat)) * cos(radians(end_lng) - radians(start_lng)) + sin(radians(start_lat)) * sin(radians(end_lat))))) AS distance_km
-      FROM trips
-      WHERE start_lat IS NOT NULL AND end_lat IS NOT NULL AND start_lat <> 0
-    ) sub
-    WHERE distance_km < 50
-    GROUP BY 1, 2 ORDER BY 1;
-  `,
+      (6371 * 0.621371 * acos(LEAST(1.0, cos(radians(start_lat)) * cos(radians(end_lat)) * cos(radians(end_lng) - radians(start_lng)) + sin(radians(start_lat)) * sin(radians(end_lat))))) AS distance_mi
+    FROM trips
+    WHERE start_lat IS NOT NULL AND end_lat IS NOT NULL AND start_lat <> 0
+  ) sub
+  WHERE distance_mi < 31 -- approx 50 km in miles
+  GROUP BY 1
+  ORDER BY 1;
+`,
+
 
   /* ============================
      BEHAVIORAL SEGMENTS
      ============================ */
-  durationDistribution: `
+  tripDurationDistribution: `
     SELECT
       CASE
         WHEN duration_seconds < 300 THEN '0-5 min'
@@ -189,9 +213,22 @@ tripsByMonth: `
         WHEN duration_seconds < 1800 THEN '20-30 min'
         ELSE '30+ min'
       END AS duration_bucket,
-      member_casual,
-      COUNT(*) AS trips
+
+      SUM(CASE WHEN member_casual = 'member' THEN 1 ELSE 0 END) AS member_trips,
+      SUM(CASE WHEN member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_trips
+
     FROM trips
-    GROUP BY 1, 2 ORDER BY 1;
+    GROUP BY 
+      CASE
+        WHEN duration_seconds < 300 THEN '0-5 min'
+        WHEN duration_seconds < 600 THEN '5-10 min'
+        WHEN duration_seconds < 1200 THEN '10-20 min'
+        WHEN duration_seconds < 1800 THEN '20-30 min'
+        ELSE '30+ min'
+      END
+    ORDER BY
+      MIN(duration_seconds); -- ensures proper bucket order
   `
+
+
 };

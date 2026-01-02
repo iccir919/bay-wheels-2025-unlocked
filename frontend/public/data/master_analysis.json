@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-02T17:00:45.121Z",
-    "queryCount": 9
+    "generatedAt": "2026-01-02T21:33:49.527Z",
+    "queryCount": 10
   },
   "results": {
     "overview": [
@@ -20274,6 +20274,108 @@
         "avg_duration_minutes": 8.96605766343385
       }
     ],
+    "topRoundTrips": [
+      {
+        "station_id": "SF-GGP-03",
+        "name": "8th Ave at JFK Dr",
+        "latitude": 37.772907,
+        "longitude": -122.465935,
+        "round_trips": 2946,
+        "member_trips": 530,
+        "casual_trips": 2416,
+        "avg_duration_minutes": 30.55982120541675
+      },
+      {
+        "station_id": "SF-ZZ11",
+        "name": "Lincoln Blvd at Hoffman St",
+        "latitude": 37.80609,
+        "longitude": -122.470314,
+        "round_trips": 2505,
+        "member_trips": 206,
+        "casual_trips": 2299,
+        "avg_duration_minutes": 36.90349432812321
+      },
+      {
+        "station_id": "SF-GGP-01",
+        "name": "Pompei Circle at JFK Dr",
+        "latitude": 37.7717,
+        "longitude": -122.45828,
+        "round_trips": 2491,
+        "member_trips": 389,
+        "casual_trips": 2102,
+        "avg_duration_minutes": 31.006903961660168
+      },
+      {
+        "station_id": "SF-A11",
+        "name": "West Crissy Field",
+        "latitude": 37.803825,
+        "longitude": -122.46771,
+        "round_trips": 1722,
+        "member_trips": 206,
+        "casual_trips": 1516,
+        "avg_duration_minutes": 33.206994183371336
+      },
+      {
+        "station_id": "SF-GGP-05",
+        "name": "JFK Dr at Great Highway",
+        "latitude": 37.770477,
+        "longitude": -122.5106,
+        "round_trips": 1577,
+        "member_trips": 223,
+        "casual_trips": 1354,
+        "avg_duration_minutes": 29.471606473175875
+      },
+      {
+        "station_id": "SF-B14",
+        "name": "Lincoln Blvd at Graham St",
+        "latitude": 37.80175,
+        "longitude": -122.45636,
+        "round_trips": 1124,
+        "member_trips": 154,
+        "casual_trips": 970,
+        "avg_duration_minutes": 39.479878164601566
+      },
+      {
+        "station_id": "SF-M1",
+        "name": "La Playa St at Lincoln Way",
+        "latitude": 37.763874,
+        "longitude": -122.50953,
+        "round_trips": 1065,
+        "member_trips": 216,
+        "casual_trips": 849,
+        "avg_duration_minutes": 33.795828389101
+      },
+      {
+        "station_id": "SF-S1",
+        "name": "Great Highway at Taraval St",
+        "latitude": 37.741848,
+        "longitude": -122.50706,
+        "round_trips": 1052,
+        "member_trips": 291,
+        "casual_trips": 761,
+        "avg_duration_minutes": 41.885191685357924
+      },
+      {
+        "station_id": "SF-A22",
+        "name": "North Point St at Polk St",
+        "latitude": 37.805443,
+        "longitude": -122.42313,
+        "round_trips": 1045,
+        "member_trips": 333,
+        "casual_trips": 712,
+        "avg_duration_minutes": 29.26455686836912
+      },
+      {
+        "station_id": "SF-A15",
+        "name": "Mason St at Halleck St",
+        "latitude": 37.803967,
+        "longitude": -122.45508,
+        "round_trips": 1039,
+        "member_trips": 126,
+        "casual_trips": 913,
+        "avg_duration_minutes": 33.48131558395442
+      }
+    ],
     "tripsByHour": [
       {
         "hour": 0,
@@ -20592,106 +20694,56 @@
     ],
     "tripDistanceDistribution": [
       {
-        "distance_bucket": "0-1 km",
-        "member_casual": "member",
-        "trips": 842927
+        "distance_bucket": "0-1 mi",
+        "member_trips": 841703,
+        "casual_trips": 204149
       },
       {
-        "distance_bucket": "0-1 km",
-        "member_casual": "casual",
-        "trips": 204435
+        "distance_bucket": "1-2 mi",
+        "member_trips": 1058698,
+        "casual_trips": 287981
       },
       {
-        "distance_bucket": "1-2 km",
-        "member_casual": "casual",
-        "trips": 288136
+        "distance_bucket": "2-3 mi",
+        "member_trips": 644502,
+        "casual_trips": 180490
       },
       {
-        "distance_bucket": "1-2 km",
-        "member_casual": "member",
-        "trips": 1058478
+        "distance_bucket": "3-5 mi",
+        "member_trips": 543754,
+        "casual_trips": 168620
       },
       {
-        "distance_bucket": "2-3 km",
-        "member_casual": "member",
-        "trips": 643595
-      },
-      {
-        "distance_bucket": "2-3 km",
-        "member_casual": "casual",
-        "trips": 180101
-      },
-      {
-        "distance_bucket": "3-5 km",
-        "member_casual": "member",
-        "trips": 543653
-      },
-      {
-        "distance_bucket": "3-5 km",
-        "member_casual": "casual",
-        "trips": 168568
-      },
-      {
-        "distance_bucket": "5+ km",
-        "member_casual": "casual",
-        "trips": 55168
-      },
-      {
-        "distance_bucket": "5+ km",
-        "member_casual": "member",
-        "trips": 124053
+        "distance_bucket": "5+ mi",
+        "member_trips": 124049,
+        "casual_trips": 55168
       }
     ],
-    "durationDistribution": [
+    "tripDurationDistribution": [
       {
         "duration_bucket": "0-5 min",
-        "member_casual": "casual",
-        "trips": 109395
-      },
-      {
-        "duration_bucket": "0-5 min",
-        "member_casual": "member",
-        "trips": 768584
-      },
-      {
-        "duration_bucket": "10-20 min",
-        "member_casual": "casual",
-        "trips": 294008
-      },
-      {
-        "duration_bucket": "10-20 min",
-        "member_casual": "member",
-        "trips": 1023373
-      },
-      {
-        "duration_bucket": "20-30 min",
-        "member_casual": "member",
-        "trips": 204824
-      },
-      {
-        "duration_bucket": "20-30 min",
-        "member_casual": "casual",
-        "trips": 122019
-      },
-      {
-        "duration_bucket": "30+ min",
-        "member_casual": "member",
-        "trips": 94016
-      },
-      {
-        "duration_bucket": "30+ min",
-        "member_casual": "casual",
-        "trips": 134110
+        "member_trips": 768584,
+        "casual_trips": 109395
       },
       {
         "duration_bucket": "5-10 min",
-        "member_casual": "casual",
-        "trips": 237962
+        "member_trips": 1122467,
+        "casual_trips": 237962
       },
       {
-        "duration_bucket": "5-10 min",
-        "member_casual": "member",
-        "trips": 1122467
+        "duration_bucket": "10-20 min",
+        "member_trips": 1023373,
+        "casual_trips": 294008
+      },
+      {
+        "duration_bucket": "20-30 min",
+        "member_trips": 204824,
+        "casual_trips": 122019
+      },
+      {
+        "duration_bucket": "30+ min",
+        "member_trips": 94016,
+        "casual_trips": 134110
       }
     ]
   }

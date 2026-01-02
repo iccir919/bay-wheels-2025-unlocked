@@ -4,12 +4,13 @@ import MapView from "./components/MapView.jsx";
 import MapToggle from "./components/MapToggle.jsx";
 
 // Charts
-import TopStationsChart from "./components/charts/TopStationsChart";
-import TopRoutesChart from './components/charts/TopRoutesChart.jsx';
+import TopHighlights from './components/charts/TopHighlights.jsx';
 import TripsByHourChart from "./components/charts/TripsByHourChart.jsx";
 import TripsByDayOfWeekChart from "./components/charts/TripsByDayOfWeekChart.jsx";
 import TripsByMonthChart from "./components/charts/TripsByMonthChart.jsx";
 import TripsByMonthBikeTypeChart  from './components/charts/TripsByMonthBikeTypeChart.jsx';
+import TripDistanceChart from './components/charts/TripDistanceChart.jsx';
+import TripDurationChart from './components/charts/TripDurationChart.jsx';
 
 function App() {
   const [data, setData] = useState(null);
@@ -51,9 +52,12 @@ function App() {
     overview,
     stations,
     commonRoutes,
+    topRoundTrips,
     tripsByHour,
     tripsByDayOfWeek,
-    tripsByMonth
+    tripsByMonth,
+    tripDistanceDistribution,
+    tripDurationDistribution
   } = data.results;
   
   const kpi = overview[0];
@@ -70,28 +74,22 @@ function App() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KpiCard icon="📊" label="Total Trips" value={kpi.total_trips.toLocaleString()} />
+        <KpiCard icon="⚡" label="Electric Rides" value={kpi.electric_trips.toLocaleString()} />
         <KpiCard icon="⏱️" label="Avg Duration" value={`${kpi.avg_duration_minutes} min`} />
         <KpiCard icon="👥" label="Subscribers" value={`${Math.round((kpi.member_trips / kpi.total_trips) * 100)}%`} />
-        <KpiCard icon="⚡" label="Electric Rides" value={kpi.electric_trips.toLocaleString()} />
       </div>
 
       {/* Map + Top Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="flex flex-row lg:flex-col gap-4">
             <div className="flex-1">
-                <TopStationsChart
-                    stations={stations}
-                    highlight={highlight}
-                    onSelect={toggleHighlight}
-                />
-            </div>
-
-            <div className="flex-1">
-                <TopRoutesChart
-                    routes={commonRoutes}
-                    highlight={highlight}
-                    onSelect={toggleHighlight}
-                />
+              <TopHighlights 
+                stations={stations}
+                routes={commonRoutes}
+                roundTrips={topRoundTrips}
+                highlight={highlight}
+                onSelect={toggleHighlight}
+              />
             </div>
         </div>
 
@@ -126,9 +124,24 @@ function App() {
 
       {/* Distance & Duration Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+        <TripDistanceChart data={tripDistanceDistribution} />
+        <TripDurationChart data={tripDurationDistribution} />
       </div>
 
+
+      <footer className="mt-16 pt-6 border-t text-center text-sm text-slate-500">
+        <p>
+          Built by{" "}
+          <a
+            href="https://www.neilricci.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Neil Ricci
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function TripsByMonthBikeTypeChart({ data }) {
                     <Bar
                         dataKey="electric_trips"
                         name="Electric Bike"
-                        fill="#fbbf24"
+                        fill="#93c5fd"
                         radius={[4, 4, 0, 0]}
                     />
                 </BarChart>
