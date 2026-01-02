@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2025-12-31T22:55:32.122Z",
+    "generatedAt": "2026-01-02T17:00:45.121Z",
     "queryCount": 9
   },
   "results": {
@@ -20277,385 +20277,275 @@
     "tripsByHour": [
       {
         "hour": 0,
-        "member_casual": "member",
-        "trips": 24068,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 0,
-        "member_casual": "casual",
-        "trips": 9122,
-        "avg_duration_minutes": 22
+        "trips": 33190,
+        "avg_duration_minutes": 14
       },
       {
         "hour": 1,
-        "member_casual": "member",
-        "trips": 14431,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 1,
-        "member_casual": "casual",
-        "trips": 6602,
-        "avg_duration_minutes": 23
-      },
-      {
-        "hour": 2,
-        "member_casual": "member",
-        "trips": 8534,
-        "avg_duration_minutes": 13
-      },
-      {
-        "hour": 2,
-        "member_casual": "casual",
-        "trips": 4399,
-        "avg_duration_minutes": 26
-      },
-      {
-        "hour": 3,
-        "member_casual": "casual",
-        "trips": 1733,
-        "avg_duration_minutes": 26
-      },
-      {
-        "hour": 3,
-        "member_casual": "member",
-        "trips": 4642,
+        "trips": 21033,
         "avg_duration_minutes": 15
       },
       {
-        "hour": 4,
-        "member_casual": "member",
-        "trips": 5240,
-        "avg_duration_minutes": 12
-      },
-      {
-        "hour": 4,
-        "member_casual": "casual",
-        "trips": 1515,
-        "avg_duration_minutes": 22
-      },
-      {
-        "hour": 5,
-        "member_casual": "member",
-        "trips": 15622,
-        "avg_duration_minutes": 10
-      },
-      {
-        "hour": 5,
-        "member_casual": "casual",
-        "trips": 2994,
+        "hour": 2,
+        "trips": 12933,
         "avg_duration_minutes": 17
       },
       {
-        "hour": 6,
-        "member_casual": "casual",
-        "trips": 8810,
-        "avg_duration_minutes": 15
+        "hour": 3,
+        "trips": 6375,
+        "avg_duration_minutes": 18
+      },
+      {
+        "hour": 4,
+        "trips": 6755,
+        "avg_duration_minutes": 14
+      },
+      {
+        "hour": 5,
+        "trips": 18616,
+        "avg_duration_minutes": 11
       },
       {
         "hour": 6,
-        "member_casual": "member",
-        "trips": 53176,
+        "trips": 61986,
         "avg_duration_minutes": 10
       },
       {
         "hour": 7,
-        "member_casual": "member",
-        "trips": 144209,
-        "avg_duration_minutes": 10
-      },
-      {
-        "hour": 7,
-        "member_casual": "casual",
-        "trips": 23070,
-        "avg_duration_minutes": 15
-      },
-      {
-        "hour": 8,
-        "member_casual": "member",
-        "trips": 272847,
+        "trips": 167279,
         "avg_duration_minutes": 11
       },
       {
         "hour": 8,
-        "member_casual": "casual",
-        "trips": 41937,
+        "trips": 314784,
+        "avg_duration_minutes": 11
+      },
+      {
+        "hour": 9,
+        "trips": 251042,
+        "avg_duration_minutes": 12
+      },
+      {
+        "hour": 10,
+        "trips": 190177,
+        "avg_duration_minutes": 14
+      },
+      {
+        "hour": 11,
+        "trips": 203241,
         "avg_duration_minutes": 15
       },
       {
-        "hour": 9,
-        "member_casual": "member",
-        "trips": 212206,
-        "avg_duration_minutes": 10
-      },
-      {
-        "hour": 9,
-        "member_casual": "casual",
-        "trips": 38836,
-        "avg_duration_minutes": 18
-      },
-      {
-        "hour": 10,
-        "member_casual": "member",
-        "trips": 148713,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 10,
-        "member_casual": "casual",
-        "trips": 41464,
-        "avg_duration_minutes": 23
-      },
-      {
-        "hour": 11,
-        "member_casual": "member",
-        "trips": 151615,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 11,
-        "member_casual": "casual",
-        "trips": 51626,
-        "avg_duration_minutes": 25
-      },
-      {
         "hour": 12,
-        "member_casual": "casual",
-        "trips": 60510,
-        "avg_duration_minutes": 25
-      },
-      {
-        "hour": 12,
-        "member_casual": "member",
-        "trips": 167424,
-        "avg_duration_minutes": 11
+        "trips": 227934,
+        "avg_duration_minutes": 15
       },
       {
         "hour": 13,
-        "member_casual": "member",
-        "trips": 163325,
-        "avg_duration_minutes": 12
-      },
-      {
-        "hour": 13,
-        "member_casual": "casual",
-        "trips": 64984,
-        "avg_duration_minutes": 25
+        "trips": 228309,
+        "avg_duration_minutes": 15
       },
       {
         "hour": 14,
-        "member_casual": "member",
-        "trips": 165667,
-        "avg_duration_minutes": 12
-      },
-      {
-        "hour": 14,
-        "member_casual": "casual",
-        "trips": 68910,
-        "avg_duration_minutes": 25
+        "trips": 234577,
+        "avg_duration_minutes": 16
       },
       {
         "hour": 15,
-        "member_casual": "casual",
-        "trips": 75886,
-        "avg_duration_minutes": 24
-      },
-      {
-        "hour": 15,
-        "member_casual": "member",
-        "trips": 192889,
-        "avg_duration_minutes": 12
+        "trips": 268775,
+        "avg_duration_minutes": 15
       },
       {
         "hour": 16,
-        "member_casual": "casual",
-        "trips": 84676,
-        "avg_duration_minutes": 22
+        "trips": 350219,
+        "avg_duration_minutes": 14
       },
       {
-        "hour": 16,
-        "member_casual": "member",
-        "trips": 265543,
+        "hour": 17,
+        "trips": 442234,
+        "avg_duration_minutes": 13
+      },
+      {
+        "hour": 18,
+        "trips": 367220,
+        "avg_duration_minutes": 13
+      },
+      {
+        "hour": 19,
+        "trips": 251724,
         "avg_duration_minutes": 12
       },
       {
-        "hour": 17,
-        "member_casual": "member",
-        "trips": 350389,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 17,
-        "member_casual": "casual",
-        "trips": 91845,
-        "avg_duration_minutes": 19
-      },
-      {
-        "hour": 18,
-        "member_casual": "member",
-        "trips": 293549,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 18,
-        "member_casual": "casual",
-        "trips": 73671,
-        "avg_duration_minutes": 19
-      },
-      {
-        "hour": 19,
-        "member_casual": "member",
-        "trips": 204342,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 19,
-        "member_casual": "casual",
-        "trips": 47382,
-        "avg_duration_minutes": 19
-      },
-      {
         "hour": 20,
-        "member_casual": "member",
-        "trips": 137786,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 20,
-        "member_casual": "casual",
-        "trips": 31173,
-        "avg_duration_minutes": 18
+        "trips": 168959,
+        "avg_duration_minutes": 12
       },
       {
         "hour": 21,
-        "member_casual": "member",
-        "trips": 103827,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 21,
-        "member_casual": "casual",
-        "trips": 28254,
-        "avg_duration_minutes": 19
+        "trips": 132081,
+        "avg_duration_minutes": 12
       },
       {
         "hour": 22,
-        "member_casual": "member",
-        "trips": 71574,
-        "avg_duration_minutes": 11
-      },
-      {
-        "hour": 22,
-        "member_casual": "casual",
-        "trips": 23650,
-        "avg_duration_minutes": 20
+        "trips": 95224,
+        "avg_duration_minutes": 13
       },
       {
         "hour": 23,
-        "member_casual": "casual",
-        "trips": 14445,
-        "avg_duration_minutes": 21
-      },
-      {
-        "hour": 23,
-        "member_casual": "member",
-        "trips": 41646,
-        "avg_duration_minutes": 11
+        "trips": 56091,
+        "avg_duration_minutes": 13
       }
     ],
     "tripsByDayOfWeek": [
       {
         "day_index": 0,
         "day_name": "Sunday",
-        "trips": 482834
+        "total_trips": 482834,
+        "member_trips": 336987,
+        "casual_trips": 145847
       },
       {
         "day_index": 1,
         "day_name": "Monday",
-        "trips": 552176
+        "total_trips": 552176,
+        "member_trips": 453179,
+        "casual_trips": 98997
       },
       {
         "day_index": 2,
         "day_name": "Tuesday",
-        "trips": 638236
+        "total_trips": 638236,
+        "member_trips": 529843,
+        "casual_trips": 108393
       },
       {
         "day_index": 3,
         "day_name": "Wednesday",
-        "trips": 646830
+        "total_trips": 646830,
+        "member_trips": 535249,
+        "casual_trips": 111581
       },
       {
         "day_index": 4,
         "day_name": "Thursday",
-        "trips": 626454
+        "total_trips": 626454,
+        "member_trips": 512441,
+        "casual_trips": 114013
       },
       {
         "day_index": 5,
         "day_name": "Friday",
-        "trips": 604412
+        "total_trips": 604412,
+        "member_trips": 466465,
+        "casual_trips": 137947
       },
       {
         "day_index": 6,
         "day_name": "Saturday",
-        "trips": 559816
+        "total_trips": 559816,
+        "member_trips": 379100,
+        "casual_trips": 180716
       }
     ],
     "tripsByMonth": [
       {
         "month_name": "Jan",
         "month_index": "1",
-        "trips": 282914
+        "total_trips": 282914,
+        "member_trips": 227825,
+        "casual_trips": 55089,
+        "classic_trips": 61679,
+        "electric_trips": 221235
       },
       {
         "month_name": "Feb",
         "month_index": "2",
-        "trips": 246802
+        "total_trips": 246802,
+        "member_trips": 200370,
+        "casual_trips": 46432,
+        "classic_trips": 54250,
+        "electric_trips": 192552
       },
       {
         "month_name": "Mar",
         "month_index": "3",
-        "trips": 325001
+        "total_trips": 325001,
+        "member_trips": 259361,
+        "casual_trips": 65640,
+        "classic_trips": 71401,
+        "electric_trips": 253600
       },
       {
         "month_name": "Apr",
         "month_index": "4",
-        "trips": 349145
+        "total_trips": 349145,
+        "member_trips": 275554,
+        "casual_trips": 73591,
+        "classic_trips": 75709,
+        "electric_trips": 273436
       },
       {
         "month_name": "May",
         "month_index": "5",
-        "trips": 381764
+        "total_trips": 381764,
+        "member_trips": 292489,
+        "casual_trips": 89275,
+        "classic_trips": 82074,
+        "electric_trips": 299690
       },
       {
         "month_name": "Jun",
         "month_index": "6",
-        "trips": 378728
+        "total_trips": 378728,
+        "member_trips": 291158,
+        "casual_trips": 87570,
+        "classic_trips": 81860,
+        "electric_trips": 296868
       },
       {
         "month_name": "Jul",
         "month_index": "7",
-        "trips": 388176
+        "total_trips": 388176,
+        "member_trips": 304411,
+        "casual_trips": 83765,
+        "classic_trips": 87838,
+        "electric_trips": 300338
       },
       {
         "month_name": "Aug",
         "month_index": "8",
-        "trips": 429921
+        "total_trips": 429921,
+        "member_trips": 322071,
+        "casual_trips": 107850,
+        "classic_trips": 95444,
+        "electric_trips": 334477
       },
       {
         "month_name": "Sep",
         "month_index": "9",
-        "trips": 458238
+        "total_trips": 458238,
+        "member_trips": 355466,
+        "casual_trips": 102772,
+        "classic_trips": 93955,
+        "electric_trips": 364283
       },
       {
         "month_name": "Oct",
         "month_index": "10",
-        "trips": 485213
+        "total_trips": 485213,
+        "member_trips": 379458,
+        "casual_trips": 105755,
+        "classic_trips": 95136,
+        "electric_trips": 390077
       },
       {
         "month_name": "Nov",
         "month_index": "11",
-        "trips": 384800
+        "total_trips": 384800,
+        "member_trips": 305076,
+        "casual_trips": 79724,
+        "classic_trips": 76205,
+        "electric_trips": 308595
       }
     ],
     "busiestDays": [

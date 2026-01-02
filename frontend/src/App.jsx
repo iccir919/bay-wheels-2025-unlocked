@@ -8,7 +8,8 @@ import TopStationsChart from "./components/charts/TopStationsChart";
 import TopRoutesChart from './components/charts/TopRoutesChart.jsx';
 import TripsByHourChart from "./components/charts/TripsByHourChart.jsx";
 import TripsByDayOfWeekChart from "./components/charts/TripsByDayOfWeekChart.jsx";
-
+import TripsByMonthChart from "./components/charts/TripsByMonthChart.jsx";
+import TripsByMonthBikeTypeChart  from './components/charts/TripsByMonthBikeTypeChart.jsx';
 
 function App() {
   const [data, setData] = useState(null);
@@ -29,7 +30,6 @@ function App() {
 
 
   function toggleHighlight(type, id) {
-    console.log(type, id)
     setHighlight(prev => {
       if (prev.type === type && prev.id === id) {
         return { type: null, id: null }; 
@@ -52,7 +52,8 @@ function App() {
     stations,
     commonRoutes,
     tripsByHour,
-    tripsByDayOfWeek
+    tripsByDayOfWeek,
+    tripsByMonth
   } = data.results;
   
   const kpi = overview[0];
@@ -111,14 +112,21 @@ function App() {
         </div>
       </div>
 
-      {/* Monthly Trend */}
-      <div className="grid grid-cols-1 gap-6">
+      {/* Monthly Trend + Busiest Days */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <TripsByMonthChart data={tripsByMonth} />
+        <TripsByMonthBikeTypeChart data={tripsByMonth} />
       </div>
 
       {/* Weekly & Hourly Usage */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <TripsByHourChart data={tripsByHour} />
         <TripsByDayOfWeekChart data={tripsByDayOfWeek} />
+      </div>
+
+      {/* Distance & Duration Distribution */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
       </div>
 
     </div>

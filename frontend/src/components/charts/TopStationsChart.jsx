@@ -2,7 +2,7 @@ export default function TopStationsChart({ stations, highlight, onSelect }) {
     const topStations = stations.slice(0, 3);
 
     return (
-        <div className="bg-white rounded-xl p-3 shadow">
+        <div className="bg-white rounded-xl p-3 shadow h-full flex flex-col">
             <h3 className="font-semibold mb-1">Top Stations</h3>
 
             <ul>

@@ -1,4 +1,4 @@
-# 🚲 Bay Wheels Intelligence Hub
+# 🚲 Bay Wheels Unlocked 2025
 
 An end-to-end data platform for analyzing San Francisco's bike-sharing ecosystem. This project transforms raw trip data into an interactive visual dashboard using a custom **Node.js/PGlite ETL pipeline** and a **React/Tailwind frontend**.
 

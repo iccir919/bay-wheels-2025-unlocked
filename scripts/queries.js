@@ -112,21 +112,34 @@ export const queries = {
         WHEN EXTRACT(DOW FROM started_at) = 5 THEN 'Friday'
         WHEN EXTRACT(DOW FROM started_at) = 6 THEN 'Saturday'
       END AS day_name,
-      COUNT(*) AS trips
+
+      COUNT(*) AS total_trips,
+
+      SUM(CASE WHEN member_casual = 'member' THEN 1 ELSE 0 END) AS member_trips,
+      SUM(CASE WHEN member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_trips
+
     FROM trips
     GROUP BY day_index, day_name
     ORDER BY day_index;
   `,
 
 tripsByMonth: `
-    SELECT 
-      TO_CHAR(started_at, 'Mon') AS month_name,
-      EXTRACT(MONTH FROM started_at) AS month_index,
-      COUNT(*) AS trips
-    FROM trips
-    WHERE EXTRACT(YEAR FROM started_at) = 2025
-    GROUP BY month_name, month_index
-    ORDER BY month_index;
+  SELECT 
+    TO_CHAR(started_at, 'Mon') AS month_name,
+    EXTRACT(MONTH FROM started_at) AS month_index,
+
+    COUNT(*) AS total_trips,
+
+    SUM(CASE WHEN member_casual = 'member' THEN 1 ELSE 0 END) AS member_trips,
+    SUM(CASE WHEN member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_trips,
+
+    SUM(CASE WHEN rideable_type = 'classic_bike' THEN 1 ELSE 0 END) AS classic_trips,
+    SUM(CASE WHEN rideable_type = 'electric_bike' THEN 1 ELSE 0 END) AS electric_trips
+
+  FROM trips
+  WHERE EXTRACT(YEAR FROM started_at) = 2025
+  GROUP BY month_name, month_index
+  ORDER BY month_index;
   `,
 
   busiestDays: `

@@ -2,7 +2,7 @@ export default function TopRoutesChart({ routes, highlight, onSelect }) {
     const topRoutes = routes.slice(0, 3);
 
     return (
-        <div className="bg-white rounded-xl p-3 shadow">
+        <div className="bg-white rounded-xl p-3 shadow h-full flex flex-col">
             <h3 className="font-semibold mb-1">Top Routes</h3>
 
             <ul>
