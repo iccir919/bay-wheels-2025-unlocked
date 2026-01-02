@@ -17,13 +17,13 @@ export default function TripDistanceChart({ data }) {
                     <Bar 
                         dataKey="member_trips"
                         name="Members"
-                        fill="#2563eb"
+                        fill="#8b5cf6"
                         radius={[4, 4, 0, 0]}
                     />
                     <Bar 
                         dataKey="casual_trips"
                         name="Casual"
-                        fill="#93c5fd"
+                        fill="#c4b5fd"
                         radius={[4, 4, 0, 0]}
                     />                
                 </BarChart>

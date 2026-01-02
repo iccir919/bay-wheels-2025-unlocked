@@ -34,7 +34,7 @@ export default function TripsByDayChart({ data }) {
             dataKey="member_trips"
             name="Members"
             stackId="a"
-            fill="#2563eb"
+            fill="#8b5cf6"
             radius={[0, 0, 0, 0]}
             barSize={25}
           />
@@ -43,7 +43,7 @@ export default function TripsByDayChart({ data }) {
             dataKey="casual_trips"
             name="Casual"
             stackId="a"
-            fill="#93c5fd"
+            fill="#c4b5fd"
             radius={[0, 6, 6, 0]}
             barSize={25}
           />

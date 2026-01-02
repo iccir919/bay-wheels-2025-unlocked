@@ -27,7 +27,7 @@ export default function TripsByMonth({ data }) {
                         type="monotone"
                         dataKey="total_trips"
                         name="Total trips"
-                        stroke="#1e40af"
+                        stroke="#6d28d9"
                         width={3}
                         dot={false}
                     />
@@ -37,7 +37,7 @@ export default function TripsByMonth({ data }) {
                         type="monotone"
                         dataKey="member_trips"
                         name="Member trips"
-                        stroke="#3b82f6"
+                        stroke="#8b5cf6"
                         strokeDasharray="4 4"
                         dot={false}
                     />
@@ -47,7 +47,7 @@ export default function TripsByMonth({ data }) {
                         type="monotone"
                         dataKey="casual_trips"
                         name="Casual Trips"
-                        stroke="#93c5fd"
+                        stroke="#c4b5fd"
                         strokeDasharray="4 4"
                         dot={false}
                     />

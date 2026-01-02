@@ -42,7 +42,7 @@ export default function TripsByHour ({ data }) {
                         }}
                     />
                     <Bar
-                        fill="#2563eb"
+                        fill="#6d28d9"
                         dataKey="trips"
                         radius={[6, 6, 0, 0]}
                     />

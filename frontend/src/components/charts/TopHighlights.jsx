@@ -67,7 +67,7 @@ export default function TopHighlights({ stations, routes, roundTrips, highlight,
                             key={id}
                             onClick={() => onSelect(clickType, id)}
                             className={`cursor-pointer p-2 rounded transition flex items-start gap-3
-                                ${isActive ? "bg-blue-100 font-semibold" : "hover:bg-slate-100"}
+                                ${isActive ? "bg-purple-100 font-semibold" : "hover:bg-slate-100"}
                             `}
                         >
                             {/* Rank */ }
@@ -98,7 +98,7 @@ function TabButton({ label, active, onClick }) {
             onClick={onClick}
             className={`px-3 py-1 rounded font-medium transition ${
                 active
-                ? "bg-blue-100 text-blue-700"
+                ? "bg-purple-100 text-purple-700"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
             }`}
         >

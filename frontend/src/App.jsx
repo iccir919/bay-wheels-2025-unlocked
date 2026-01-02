@@ -42,7 +42,7 @@ function App() {
   if (!data) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-500"></div>
         <span className="ml-4 text-lg text-slate-600">Loading data...</span>
       </div>
     )
@@ -136,7 +136,7 @@ function App() {
             href="https://www.neilricci.dev/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-700 font-medium"
+            className="text-purple-600 hover:text-purple-700 font-medium"
           >
             Neil Ricci
           </a>

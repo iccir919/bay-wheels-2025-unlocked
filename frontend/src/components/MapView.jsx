@@ -42,8 +42,8 @@ export default function MapView({ mapView, stations, routes, highlight, onSelect
     if (isDimmed) fillOpacity = 0.25;
 
     return {
-      color: "#2563eb",     // blue-600 stroke
-      fillColor: "#3b82f6", // blue-500 fill
+      color: "#6d28d9",     
+      fillColor: "#8b5cf6", 
       fillOpacity,
       weight: isActive ? 2.5 : 1.5,
       radius
@@ -56,18 +56,18 @@ export default function MapView({ mapView, stations, routes, highlight, onSelect
     const t = Math.min(1, Math.max(0, (trips - routeMin) / (routeMax - routeMin)));
 
     // Base soft blue
-    let color = "#60a5fa"; // blue-400
+    let color = "#a78bfa"; 
     let opacity = 0.3 + 0.7 * t;  // keep opacity scaling
     let weight = 2 + 3 * t;        // slightly thicker base
 
     if (isHovered) {
-      color = "#3b82f6"; // blue-500
+      color = "#8b5cf6"; // blue-500
       opacity = 0.9;
       weight = 5 + 1 * t;
     }
 
     if (isActive) {
-      color = "#1d4ed8"; // blue-700
+      color = "#6d28d9"; // blue-700
       opacity = 0.95;
       weight = 6 + 1 * t;
     }
